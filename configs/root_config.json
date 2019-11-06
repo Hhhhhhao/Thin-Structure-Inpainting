@@ -1,0 +1,100 @@
+{
+    "name": "Root",
+    "n_gpu": 1,
+
+    "generator_arch": {
+        "type": "Unet",
+        "args": {}
+    },
+    "local_discriminator_arch": {
+        "type": "Local_Discriminator",
+        "args": {
+            "input_nc":1,
+            "ndf":32,
+            "n_layers":5}
+    },
+    "global_discriminator_arch": {
+        "type": "Global_Discriminator",
+        "args": {
+            "input_nc":1,
+            "ndf":32,
+            "n_layers":6}
+    },
+    "train_data_loader": {
+        "type": "SyntheticRootDataLoader",
+        "args":{
+            "which_set": "train",
+            "batch_size": 16,
+            "mask_type":"mix",
+            "dilation":true,
+            "noisy_texture":true,
+            "rotation":true,
+            "image_size":256,
+            "num_workers":0
+        }
+    },
+    "valid_data_loader": {
+        "type": "SyntheticRootDataLoader",
+        "args":{
+            "which_set": "valid",
+            "batch_size": 1,
+            "mask_type":"mix",
+            "dilation":true,
+            "noisy_texture":true,
+            "rotation":true,
+            "image_size":256,
+            "num_workers":0
+        }
+    },
+    "test_data_loader": {
+        "type": "SyntheticRootDataLoader",
+        "args":{
+            "which_set": "test",
+            "batch_size": 1,
+            "mask_type":"mix",
+            "dilation":true,
+            "noisy_texture":true,
+            "rotation":true,
+            "image_size":256,
+            "num_workers":0
+        }
+    },
+    "generator_optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.0002,
+            "weight_decay": 0,
+            "betas":[0.5, 0.999],
+            "amsgrad": false
+        }
+    },
+    "discriminator_optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.0004,
+            "weight_decay": 0,
+            "betas":[0.5, 0.999],
+            "amsgrad": false
+        }
+    },
+    "metrics": [],
+    "trainer": {
+        "epochs": 40,
+        "lambda_1":1000,
+        "lambda_2":1,
+        "lambda_3":1,
+        "pretrain_generator_epochs":0,
+        "generator_pretrain_path":"saved/",
+        "pretrain_discriminator_epochs":0,
+        "discriminator_pretrain_path":"saved/",
+        "save_dir": "saved/",
+        "save_period": 1,
+        "verbosity": 2,
+
+        "monitor": "min generator_val_loss",
+        "early_stop": 5,
+
+        "tensorboardX": true,
+        "log_dir": "saved/runs"
+    }
+}
