@@ -289,9 +289,8 @@ def get_image(image_id,
               noisy_texture=True,
               rotation=True,
               training=True,
-              seed=DEFAULT_SEED
-            ):
-     """
+              seed=DEFAULT_SEED):
+    """
     Augmentation of a synthetic root to be more similar to chickpea root
     :param dilation: True/False whether to dilate the root
     :param noisy_texture: True/False whether to add noise into texture of the root
@@ -299,7 +298,6 @@ def get_image(image_id,
     :param training: True/False whether at training stage
     :return: an transformed root image
     """
-
     # read image
     image = cv2.imread(image_id, 0)
 
@@ -307,8 +305,6 @@ def get_image(image_id,
     _, image = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)
     image = (image/255.).astype(np.uint8)
 
-
-    # TODO resolve the randominess here
     # decide whether to randomize image or not
     p = np.random.uniform(0., 1.)
     if p >= 0.25:
