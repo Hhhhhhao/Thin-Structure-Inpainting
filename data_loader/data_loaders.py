@@ -5,7 +5,7 @@ blob_masks_path = os.path.join(dirname, 'data/root/gaps/small/')
 import numpy as np
 import torch
 from torch.utils.data import DataLoader
-from data_loader.datasets import SyntheticRootDataset, ChickpeaPatchRootDataset, ChickpeaFullRootDataset, RoadDataset, LineDataset, RetinalDataset
+from data_loader.datasets import SyntheticRootDataset, ChickpeaPatchRootDataset, ChickpeaFullRootDataset, RoadDataset, LineDataset, RetinalDataset, TestRootDataset
 from functools import partial
 from utils.data_processing import get_patches, preprocessing, get_blob_masks
 
