@@ -245,3 +245,42 @@ class RetinalDataset(Dataset):
         image = cv2.imread(image_id, 0)
         image = image/255.
         return image
+
+
+class TestRootDataset(Dataset):
+    def __init__(self,
+                 name='synthetic'):
+
+        if name == 'synthetic':
+            data_path = test_synthetic_path
+        elif name == 'chickpea':
+            data_path = test_chickpea_path
+        else:
+            raise ValueError('wrong name')
+
+        if os.path.exists(data_path):
+            self.input_ids = get_files(data_path + 'binary_input/')
+            self.target_ids = get_files(data_path + 'binary_target/')
+        else:
+            raise ValueError("data path do not exist:{}".format(data_path))
+
+    def __len__(self):
+        return len(self.input_ids)
+
+    def __getitem__(self, index):
+        input_id = self.input_ids[index]
+        target_id = self.target_ids[index]
+
+        # load image file
+        input = cv2.imread(input_id, 0)
+        input = input/255.
+        input = np.expand_dims(input, -1)
+
+        # load image file
+        target = cv2.imread(target_id, 0)
+        target = target/255.
+        target = np.expand_dims(target, -1)
+
+        data ={'input':input, 'target':target}
+
+        return data
