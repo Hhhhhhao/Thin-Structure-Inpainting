@@ -26,9 +26,6 @@
             "which_set": "train",
             "batch_size": 16,
             "mask_type":"mix",
-            "dilation":true,
-            "noisy_texture":true,
-            "rotation":true,
             "image_size":256,
             "num_workers":0
         }
@@ -39,9 +36,6 @@
             "which_set": "valid",
             "batch_size": 1,
             "mask_type":"mix",
-            "dilation":true,
-            "noisy_texture":true,
-            "rotation":true,
             "image_size":256,
             "num_workers":0
         }
@@ -52,9 +46,6 @@
             "which_set": "test",
             "batch_size": 1,
             "mask_type":"mix",
-            "dilation":true,
-            "noisy_texture":true,
-            "rotation":true,
             "image_size":256,
             "num_workers":0
         }
