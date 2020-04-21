@@ -1,10 +1,22 @@
 import os
 import cv2
+import numpy as np
 dirname = os.path.dirname(__file__)
 dirname = os.path.dirname(dirname)
 from tqdm import tqdm
 from torch.utils.data import Dataset
 from utils.data_processing import get_files, get_image
+synthetic_path = os.path.join(dirname, 'data/root/synthetic')
+chickpea_patch_path = os.path.join(dirname, 'data/root/real/patch/')
+chickpea_full_path = os.path.join(dirname, 'data/root/real')
+# test_chickpea_path = os.path.join(dirname, 'data/root/final_test/chickpea-patch/')
+retinal_full_path = os.path.join(dirname, 'data/retinal/')
+test_synthetic_path = os.path.join(dirname, 'data/root/synthetic/')
+# test_synthetic_path = os.path.join(dirname, 'saved/Root-Baseline/0503_095454/testing/synthetic-patch/')
+# test_synthetic_path = os.path.join(dirname, 'saved/Root-Baseline/0503_202933/testing/synthetic-patch/')
+test_chickpea_path = os.path.join(dirname, 'saved/Root-Baseline/0502_083309/testing/chickpea-patch/')
+# test_chickpea_path = os.path.join(dirname, 'saved/Root-Baseline/0503_095454/testing/chickpea-patch/')
+# test_chickpea_path = os.path.join(dirname, 'saved/Root-Baseline/0503_202933/testing/chickpea-patch/')
 
 
 class SyntheticRootDataset(Dataset):
