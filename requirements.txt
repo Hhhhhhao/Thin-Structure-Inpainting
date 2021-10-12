@@ -31,7 +31,7 @@ networkx==2.2
 notebook==5.7.8
 numpy==1.15.4
 olefile==0.46
-opencv-python==4.0.0.21
+opencv-python==4.1.1.26
 pandas==0.24.1
 pandocfilters==1.4.2
 parso==0.3.2
