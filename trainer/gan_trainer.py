@@ -412,7 +412,7 @@ class GANTrainer(BaseGANTrainer):
         plt.close(fig)
 
     def prepare_patches(self, batch_size):
-        index = np.random.randint(0, 5000)
+        index = np.random.randint(0, 4500)
         image = self.train_data_loader.dataset.__getitem__(index)
         batch_x, batch_y, batch_masks, locations, orig_window_length, image = full_seg_collate_fn(
             [image],
