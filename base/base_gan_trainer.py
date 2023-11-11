@@ -108,7 +108,7 @@ class BaseGANTrainer:
         pretrain the generator
         :return:
         """
-        if not os.path.exists(self.config["trainer"]["generator_pretrain_path"]):
+        if not os.path.exists(self.config["trainer"]["generator_pretrain_path"]+'pretrain_generator.pth'):
             print("pre train generator")
             self.pre_train_generator()
             self._save_generator_checkpoint()

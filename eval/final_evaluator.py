@@ -13,7 +13,8 @@ chickpea_valid_path = os.path.join(main_dirname, 'output/Unet-randomization/0312
 import data_loader.data_loaders as module_data
 from utils.util import ensure_dir
 from utils.data_processing import convert_labels_to_rgb, remove_artifacts, inpaint_full_image, get_files
-from skimage.measure import compare_mse, label
+from skimage.measure import  label
+from sklearn.metrics import mean_squared_error
 
 
 def get_instance(module, name, config, *args):
@@ -122,14 +123,14 @@ class UnetEvaluator(BaseEvaluator):
                     continue
                     # compute overall mse
                 metrics["mse_overall_pred"].append(
-                    compare_mse(predict_image[..., 1:].astype(np.uint8), target_image.astype(np.uint8)))
+                    mean_squared_error(predict_image[..., 1:].astype(np.uint8), target_image.astype(np.uint8)))
                 # compute mse within gaps
                 metrics["mse_within_gaps_pred"].append(np.sum(np.square(
                     np.subtract(np.multiply(predict_image[..., :1].astype(np.uint8), mask),
                                 np.multiply(target_image[..., :1].astype(np.uint8), mask)))) / np.sum(mask))
 
                 # compute overall mse
-                mse_overall_input = compare_mse(input_image[..., :1].astype(np.uint8), target_image.astype(np.uint8))
+                mse_overall_input = mean_squared_error(input_image[..., :1].astype(np.uint8), target_image.astype(np.uint8))
                 metrics["mse_overall_input"].append(mse_overall_input)
                 # compute mse within gaps
                 metrics["mse_within_gaps_input"].append(np.sum(np.square(

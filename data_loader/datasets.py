@@ -55,8 +55,10 @@ class SyntheticRootDataset(Dataset):
         # get file list as image ids
         path_to_files = os.path.join(synthetic_path, which_set+'/')
         if os.path.exists(path_to_files):
-            ids = get_files(path_to_files)
+            ids = os.listdir(path_to_files)
             # remove root images that are too thin
+            for i in range(len(ids)):
+                ids[i] = path_to_files + ids[i]
             self.ids = self.select_images(ids)
         else:
             raise ValueError("data path do not exist:{}".format(path_to_files))
@@ -87,10 +89,12 @@ class SyntheticRootDataset(Dataset):
         """
         new_ids = []
         for id in tqdm(ids):
-            image = cv2.imread(id, 0)
-            image_width = image.shape[1]
-            if image_width >= width:
-                new_ids.append(id)
+            
+            if 'dicot' in id:
+                image = cv2.imread(id, 0)
+                image_width = image.shape[1]
+                if image_width >= width:
+                    new_ids.append(id)
         return new_ids
 
 
@@ -175,7 +179,7 @@ class RoadDataset(Dataset):
     """
     def __init__(self, which_set):
         assert which_set in ['train', 'valid', 'test'], "wrong set:{}".format(which_set)
-        if which_set is 'train':
+        if which_set == 'train':
             self.training = True
         else:
             self.training = False
@@ -202,7 +206,7 @@ class LineDataset(Dataset):
     """
     def __init__(self, which_set):
         assert which_set in ['train', 'valid', 'test'], "wrong set:{}".format(which_set)
-        if which_set is 'train':
+        if which_set == 'train':
             self.training = True
         else:
             self.training = False
@@ -229,12 +233,12 @@ class RetinalDataset(Dataset):
     """
     def __init__(self, which_set='train'):
         assert which_set in ['train', 'valid', 'test'], "wrong set:{}".format(which_set)
-        if which_set is 'train':
+        if which_set == 'train':
             self.training = True
         else:
             self.training = False
 
-        if which_set is 'test':
+        if which_set == 'test':
             file_format = 'tif'
         else:
             file_format = 'png'
